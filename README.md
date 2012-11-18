@@ -10,4 +10,8 @@ A very basic contact form block that you can use as a starting point for creatin
     * Change the block name and description. It is recommended that the name correspond with the directory and class names, but this is not a technical requirement (just avoids confusion).
     * Change the table name to `bt` followed by the CamelCase version of the block name -- for example, "My Great Form" would get a table name of `btMyGreatForm`.
 4. Edit `db.xml` file so the table name matches what you set in `controller.php`.
-5. Customize the form as needed. The view.php file contains the form html. The action_submit_form() method in controller.php responds to form submissions.
+5. Install the block:
+    * Concrete5.6 or higher: First disable the Overrides Cache via `Dashboard > System & Settings > Optimization > Cache & Speed Settings > Overrides Cache`. Then install the block via `Dashboard > Stacks & Blocks > Block Types`.
+    * Concrete5.5: Install the block via `Dashboard > Stacks & Blocks > Block Types`.
+    * Concrete5.4: Install the block via `Dashboard > Add Functionality`.
+6. Customize the form as needed. The view.php file contains the form html. The action_submit_form() method in controller.php responds to form submissions.
