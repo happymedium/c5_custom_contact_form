@@ -33,6 +33,7 @@ class ContactFormBlockController extends BlockController {
 		} else {
 			//Success -- send notification email and reload/redirect page to avoid browser warnings about re-posting content if user reloads page 
 			$this->send_notification_email($this->post());
+			$this->send_thanks_email($this->post());
 			$redirect_to_path = Page::getCurrentPage()->getCollectionPath() . '?thanks=1';
 			$this->redirect($redirect_to_path);
 		}
@@ -60,13 +61,13 @@ class ContactFormBlockController extends BlockController {
 	
 	private function send_notification_email($data) {
 		$subject = '['.SITE.'] New Contact Form Submission';
-		$optInString = $data['optIn'] ? 'Yes' : 'No';
 		$body = <<<EOB
-A new submission has been made to the custom contact form:
+A new submission has been made to the Happy Medium contact form:
 
 Name: {$data['name']}
 Email: {$data['email']}
-Newsletter: {$optInString}
+Phone: {$data['phone']}
+Subject: {$data['request']}
 
 Message:
 {$data['message']}
@@ -80,6 +81,33 @@ EOB;
 		$mh = Loader::helper('mail');
 		$mh->from(UserInfo::getByID(USER_SUPER_ID)->getUserEmail());
 		$mh->to($this->notifyEmail);
+		$mh->setSubject($subject);
+		$mh->setBody($body); //Use $mh->setBodyHTML() if you want an HTML email instead of (or in addition to) plain-text
+		$mh->sendMail(); 
+	}
+
+	private function send_thanks_email($data) {
+		$subject = '['.SITE.'] Your Contact Form Submission';
+		$body = <<<EOB
+Thanks for submitting the following to the Happy Medium contact form:
+
+Name: {$data['name']}
+Email: {$data['email']}
+Phone: {$data['phone']}
+Subject: {$data['request']}
+
+Message:
+{$data['message']}
+
+EOB;
+//Dev Note: The "EOB;" above must be at the far-left of the page (no whitespace before it),
+//          and cannot have anything after it (not even comments).
+//			See http://www.php.net/manual/en/language.types.string.php#language.types.string.syntax.heredoc
+		
+		//Send email
+		$mh = Loader::helper('mail');
+		$mh->from('info@itsahappymedium.com');
+		$mh->to($data['email']);
 		$mh->setSubject($subject);
 		$mh->setBody($body); //Use $mh->setBodyHTML() if you want an HTML email instead of (or in addition to) plain-text
 		$mh->sendMail(); 
