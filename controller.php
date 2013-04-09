@@ -1,6 +1,6 @@
 <?php defined('C5_EXECUTE') or die(_("Access Denied."));
 
-class CustomContactFormBlockController extends BlockController {
+class ContactFormBlockController extends BlockController {
 /*    ^^^^^^^^^^^^^^^^^
       Change this portion
       of the class name to
@@ -8,9 +8,9 @@ class CustomContactFormBlockController extends BlockController {
       block's directory name
 */
 
-	protected $btDescription = "Custom Contact Form";
-	protected $btName = "Custom Contact Form";
-	protected $btTable = 'btCustomContactForm'; //Change db.xml table name to match this
+	protected $btDescription = "Happy Medium Custom Contact Form";
+	protected $btName = "Happy Medium Contact Form";
+	protected $btTable = 'btContactForm'; //Change db.xml table name to match this
 	protected $btInterfaceWidth = "500";
 	protected $btInterfaceHeight = "450";
 	
