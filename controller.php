@@ -79,7 +79,8 @@ EOB;
 		
 		//Send email
 		$mh = Loader::helper('mail');
-		$mh->from(UserInfo::getByID(USER_SUPER_ID)->getUserEmail());
+		//$mh->from(UserInfo::getByID(USER_SUPER_ID)->getUserEmail());
+		$mh->from('info@itsahappymedium.com');
 		$mh->to($this->notifyEmail);
 		$mh->setSubject($subject);
 		$mh->setBody($body); //Use $mh->setBodyHTML() if you want an HTML email instead of (or in addition to) plain-text
